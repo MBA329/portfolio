@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { skills } from '../data'
 import { CustomCursor } from './CustomCursor'
@@ -44,6 +44,17 @@ function App() {
             <div data-reveal className="timeline-row"><div className="timeline-date">03.25 — 08.25</div><div><h3 className="text-2xl font-semibold">Frontend Developer Intern</h3><p className="mt-1 text-acid">Clyp Technologies</p><p className="mt-4 max-w-lg leading-7 text-muted">Shipped responsive product experiences and translated product thinking into maintainable UI systems.</p></div></div>
             <div data-reveal className="timeline-row"><div className="timeline-date">06.26 — now</div><div><h3 className="text-2xl font-semibold">Volunteer</h3><p className="mt-1 text-acid">Google Developer Group</p><p className="mt-4 max-w-lg leading-7 text-muted">Showing up for the community, sharing what I learn, and helping more people find their way into technology.</p></div></div>
             <div data-reveal className="timeline-row"><div className="timeline-date">10.26</div><div><h3 className="text-2xl font-semibold">B.Sc. Computer Science</h3><p className="mt-1 text-acid">Covenant University · First Class expected</p><p className="mt-4 max-w-lg leading-7 text-muted">Grounded in systems thinking, with a Cisco cybersecurity certification and a bias toward learning by building.</p></div></div>
+          </div>
+        </section>
+
+        <section className="section-shell cv-section">
+          <div data-reveal className="cv-card">
+            <div>
+              <SectionLabel number="—" children="Keep a copy" />
+              <h2 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-paper md:text-6xl">A little more detail, <span className="text-acid">one click away.</span></h2>
+              <p className="mt-5 max-w-lg leading-7 text-muted">Download my CV for a concise look at my experience, education, projects, and the tools I use to build thoughtful digital products.</p>
+            </div>
+            <a href="/portfolio/emmanuel-mba-cv.pdf" download className="cv-download"><Download size={18} /> Download CV <ArrowUpRight size={16} /></a>
           </div>
         </section>
 
