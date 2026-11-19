@@ -1,16 +1,45 @@
+import { useEffect, useRef } from 'react'
 import { ArrowUpRight, X } from 'lucide-react'
-import type { Project } from '../data'
+import type { Project } from '../data/portfolio'
 
-export function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
+export function ProjectModal({ project, onClose }: { project: Project | null; onClose: () => void }) {
+  const closeButton = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!project) return
+    closeButton.current?.focus()
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [project, onClose])
+
+  if (!project) return null
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/80 p-5 backdrop-blur-md" role="dialog" aria-modal="true">
-      <div className="relative w-full max-w-xl rounded-[2rem] border border-white/10 bg-[#15171b] p-7 shadow-2xl md:p-10">
-        <button className="absolute right-6 top-6 rounded-full border border-white/10 p-2 text-muted hover:text-paper" onClick={onClose} aria-label="Close project details"><X size={18} /></button>
-        <p className="mb-3 font-mono text-xs uppercase tracking-widest text-acid">Architecture / {project.title}</p>
-        <h3 className="mb-8 max-w-sm text-3xl font-semibold text-paper">{project.description}</h3>
-        <div className="space-y-3">{project.architecture.map((item, index) => <div key={item} className="flex items-center gap-4 border-t border-white/10 py-4 text-sm text-muted"><span className="font-mono text-acid">0{index + 1}</span>{item}</div>)}</div>
-        <a href={project.github} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-paper hover:text-acid">View source <ArrowUpRight size={16} /></a>
-      </div>
+    <div className="modal-backdrop" role="presentation" onMouseDown={(event) => {
+      if (event.target === event.currentTarget) onClose()
+    }}>
+      <article className="modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+        <button ref={closeButton} className="modal-close" type="button" onClick={onClose} aria-label="Close project details">
+          <X size={20} />
+        </button>
+        <p className="section-kicker">{project.role}</p>
+        <h2 id="project-modal-title">{project.title}</h2>
+        <p className="modal-summary">{project.summary}</p>
+        <h3>Architecture overview</h3>
+        <ul className="architecture-list">
+          {project.architecture.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+        <a className="button button-primary" href={project.link} target="_blank" rel="noreferrer">
+          View project <ArrowUpRight size={16} />
+        </a>
+      </article>
     </div>
   )
 }
