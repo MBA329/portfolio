@@ -47,7 +47,7 @@ function App() {
             <div className="about-grid" data-reveal>
               <h2>Turning product ideas into clear, usable interfaces.</h2>
               <div className="about-copy">
-                <p>I’m pursuing a B.Sc. in Computer Science at Covenant University, Ogun State, with First Class Standing and an expected graduation in October 2026.</p>
+                <p>I’m a First Class Graduate of Computer Science from Covenant University.</p>
                 <p>My experience spans API integrations, responsive marketing pages, reusable React components, workshop support, and collaborative developer events.</p>
                 <p><strong>Relevant coursework:</strong> Software Engineering, Project Management, and Human-Computer Interaction.</p>
               </div>
