@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, Moon, Sun, X } from 'lucide-react'
 
 const links = [
   ['About', '#about'],
@@ -10,12 +10,26 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  )
 
   useEffect(() => {
     const close = () => setOpen(false)
     window.addEventListener('resize', close)
     return () => window.removeEventListener('resize', close)
   }, [])
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(nextTheme)
+    document.documentElement.dataset.theme = nextTheme
+    localStorage.setItem('portfolio-theme', nextTheme)
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      nextTheme === 'dark' ? '#0d1117' : '#f6f7f9',
+    )
+  }
 
   return (
     <header className="site-header">
@@ -37,6 +51,15 @@ export function Nav() {
           ))}
           <a className="nav-contact" href="mailto:emmanuelmba329@gmail.com">Email me</a>
         </nav>
+        <button
+          className="theme-button"
+          type="button"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
       </div>
     </header>
   )
